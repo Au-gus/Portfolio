@@ -49,7 +49,7 @@ export function Hero() {
 
                         {/* Greeting */}
                         <TypewriterText
-                            text={["Hi! I am", "Faceless Ancient..."]}
+                            text={["Hi! I am Austin Karki,", "alias Faceless Ancient..."]}
                             className="text-xl md:text-2xl lg:text-3xl font-mono text-white leading-snug"
                             delay={1.5}
                         />
