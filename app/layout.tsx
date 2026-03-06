@@ -25,8 +25,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "High-End CS Portfolio",
-  description: "A technical showcase using Next.js 15, WebGL, and Intercepting Routes",
+  title: "Austin Karki | Faceless Ancient Portfolio",
+  description: "Official portfolio of Austin Karki (Faceless Ancient). Explore projects in AI, Machine Learning, and High-End Web Development.",
 };
 
 export default function RootLayout({
