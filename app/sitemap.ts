@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://faceless-ancient.vercel.app' // Replace with your actual domain later
+    const baseUrl = 'https://portfolio-bice-psi-76.vercel.app'
 
     return [
         {
