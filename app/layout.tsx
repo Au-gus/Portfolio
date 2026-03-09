@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/ui/Navbar";
-import { IntroSequence } from "@/components/ui/IntroSequence";
+import { Navbar } from "@/components/ui/Navbar";
 import { PageTransitionWrapper } from "@/components/ui/PageTransitionWrapper";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
@@ -41,7 +41,6 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
       >
-        <IntroSequence />
         <PageTransitionWrapper>
           <SmoothScrollProvider>
             <Navbar />
