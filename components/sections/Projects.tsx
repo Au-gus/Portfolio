@@ -5,7 +5,6 @@ import { ImageLoader } from "@/components/ui/ImageLoader";
 import Link from "next/link";
 import { MagneticWrapper } from "@/components/ui/MagneticWrapper";
 import { getFeaturedProjects } from "@/data/projects";
-import { useBiometricGate } from "@/components/providers/BiometricGateContext";
 
 const spans = [
     "md:col-span-2 md:row-span-2",
@@ -16,7 +15,6 @@ const spans = [
 
 export function Projects() {
     const featured = getFeaturedProjects();
-    const { openGate } = useBiometricGate();
 
     return (
         <section className="py-24 md:py-32 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto z-10 relative">
@@ -25,12 +23,12 @@ export function Projects() {
                     Projects
                 </h2>
                 <MagneticWrapper>
-                    <button
-                        onClick={openGate}
+                    <Link
+                        href="/projects"
                         className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 font-mono text-sm transition-all duration-300 cursor-pointer"
                     >
                         View All ↗
-                    </button>
+                    </Link>
                 </MagneticWrapper>
             </div>
 

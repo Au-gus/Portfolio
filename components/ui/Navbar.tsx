@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import Image from "next/image";
 import Link from "next/link";
-import { useBiometricGate } from "@/components/providers/BiometricGateContext";
 
 
 const navItems = [
@@ -28,7 +27,6 @@ export function Navbar() {
 
     const pathname = usePathname();
     const router = useRouter();
-    const { openGate } = useBiometricGate();
     const isHome = pathname === "/";
     const velocity = useScrollVelocity();
 
@@ -86,17 +84,13 @@ export function Navbar() {
                 projectDoubleAttempts.current += 1;
 
                 if (projectDoubleAttempts.current >= 3) {
-                    // 3rd double-tap → auto access, no biometric needed
+                    // 3rd double-tap → auto access
                     projectDoubleAttempts.current = 0;
                     router.push("/projects");
                 } else {
-                    // 1st or 2nd double-tap → warn and open gate
+                    // 1st or 2nd double-tap → warn and navigate
                     showHoldWarning();
-                    if (sessionStorage.getItem("projectAuth") === "true") {
-                        router.push("/projects");
-                    } else {
-                        openGate();
-                    }
+                    router.push("/projects");
                 }
                 return;
             }

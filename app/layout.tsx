@@ -6,8 +6,9 @@ import { IntroSequence } from "@/components/ui/IntroSequence";
 import { PageTransitionWrapper } from "@/components/ui/PageTransitionWrapper";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
-import { BiometricGateProvider } from "@/components/providers/BiometricGateContext";
-import { BiometricGate } from "@/components/ui/BiometricGate";
+import { PageTransitionWrapper } from "@/components/ui/PageTransitionWrapper";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -40,17 +41,14 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${outfit.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
       >
-        <BiometricGateProvider>
-          <BiometricGate />
-          <IntroSequence />
-          <PageTransitionWrapper>
-            <SmoothScrollProvider>
-              <Navbar />
-              {children}
-              <ScrollToTop />
-            </SmoothScrollProvider>
-          </PageTransitionWrapper>
-        </BiometricGateProvider>
+        <IntroSequence />
+        <PageTransitionWrapper>
+          <SmoothScrollProvider>
+            <Navbar />
+            {children}
+            <ScrollToTop />
+          </SmoothScrollProvider>
+        </PageTransitionWrapper>
       </body>
     </html>
   );
