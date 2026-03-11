@@ -65,8 +65,8 @@ export function Footer() {
                                     }`}
                             >
                                 <Image
-                                    src="/images/fa_logo.png"
-                                    alt="FA"
+                                    src="/images/ak_logo.png"
+                                    alt="Austin Karki Logo"
                                     fill
                                     className={`object-cover ${isBlackHole ? 'mix-blend-difference' : ''}`}
                                 />
@@ -74,7 +74,7 @@ export function Footer() {
 
                             <Link href="/">
                                 <span className={`font-mono text-lg tracking-tight transition-colors ${isBlackHole ? 'text-red-500 animate-pulse' : 'text-white group-hover:text-white/80'}`}>
-                                    {isBlackHole ? "[ ANOMALY DETECTED ]" : "Faceless Ancient"}
+                                    {isBlackHole ? "[ ANOMALY DETECTED ]" : "Austin Karki"}
                                 </span>
                             </Link>
                         </div>
@@ -126,10 +126,10 @@ export function Footer() {
                         </h4>
                         <div className="flex flex-col gap-3">
                             <a
-                                href="mailto:facelessancient2025@gmail.com"
+                                href="mailto:austinkarki@gmail.com"
                                 className="text-white/50 text-sm font-mono hover:text-white transition-colors duration-300"
                             >
-                                facelessancient2025@gmail.com
+                                austinkarki@gmail.com
                             </a>
                             <p className="text-white/30 text-sm font-mono">
                                 Kathmandu, Nepal
@@ -143,7 +143,7 @@ export function Footer() {
             <div className="border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-white/20 font-mono text-xs tracking-wide">
-                        © {new Date().getFullYear()} Faceless Ancient · Built with Next.js & Three.js
+                        © {new Date().getFullYear()} Austin Karki · Built with Next.js & Three.js
                     </p>
 
                     <div className="flex items-center gap-4">

@@ -20,7 +20,7 @@ export function TypewriterText({ text, className = "", delay = 0 }: TypewriterTe
     useEffect(() => {
         const handleSelection = () => {
             const selection = window.getSelection();
-            if (selection && selection.toString().toLowerCase().includes("faceless")) {
+            if (selection && selection.toString().toLowerCase().includes("austin")) {
                 setIsRunic(true);
                 if (!hasTriggered.current) {
                     hasTriggered.current = true;

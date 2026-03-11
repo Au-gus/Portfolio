@@ -23,9 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://karkiaustin.com.np"),
-  title: "Austin Karki | Faceless Ancient - Interactive ML Portfolio",
-  description: "High-end interactive portfolio of Austin Karki (Faceless Ancient). Specialist in Machine Learning, 3D Web Experiences, and Next.js development.",
-  keywords: ["Austin Karki", "Faceless Ancient", "Interactive Portfolio", "Machine Learning Developer", "Anti-Gravity Web Design", "Next.js 15 Portfolio"],
+  title: "Austin Karki | Interactive ML Portfolio",
+  description: "High-end interactive portfolio of Austin Karki. Specialist in Machine Learning, Data Science, and Next.js development.",
+  keywords: ["Austin Karki", "Interactive Portfolio", "Machine Learning Developer", "Data Scientist", "Next.js 15 Portfolio"],
 };
 
 export default function RootLayout({

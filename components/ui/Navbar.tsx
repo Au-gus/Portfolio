@@ -127,14 +127,14 @@ export function Navbar() {
                 >
                     <div className="w-8 h-8 relative rounded-lg overflow-hidden border border-white/10 bg-white/5">
                         <Image
-                            src="/images/fa_logo.png"
-                            alt="FA"
+                            src="/images/ak_logo.png"
+                            alt="Austin Karki Logo"
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
                         />
                     </div>
                     <span className="font-mono text-white/80 text-sm tracking-widest group-hover:text-white transition-colors hidden sm:block">
-                        Faceless<span className="text-white/30">·</span>Ancient
+                        Austin<span className="text-white/30">·</span>Karki
                     </span>
                 </Link>
 

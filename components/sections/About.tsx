@@ -137,7 +137,7 @@ export function About() {
 
                     <div className="space-y-6 text-white/70 text-lg leading-relaxed font-sans max-w-2xl">
                         <p>
-                            I&apos;m Austin Karki, also known as Faceless Ancient, a scholarly explorer at the intersection of machine intelligence, visual perception, and elegant web craftsmanship. My foundation spans Python, C, C++, JavaScript, and CSS, enabling me to prototype algorithms and sculpt interactive experiences alike.
+                            I&apos;m Austin Karki, a scholarly explorer at the intersection of machine intelligence, visual perception, and elegant web craftsmanship. My foundation spans Python, C, C++, JavaScript, and CSS, enabling me to prototype algorithms and sculpt interactive experiences alike.
                         </p>
                         <p>
                             My technical repertoire includes Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, and YOLO—each explored primarily at a conceptual level—paired with rigorous Exploratory Data Analysis. I also dabble in front‑end development, UI/UX fundamentals, and back‑end engineering, weaving these strands into cohesive digital narratives.

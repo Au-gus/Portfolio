@@ -74,7 +74,7 @@ export function Contact() {
                 >
                     <MagneticWrapper>
                         <a
-                            href="mailto:facelessancient2025@gmail.com"
+                            href="mailto:austinkarki@gmail.com"
                             onMouseEnter={() => setIsHovering(true)}
                             onMouseLeave={() => setIsHovering(false)}
                             className={`px-10 py-4 rounded-full font-mono text-sm tracking-wide transition-all duration-300 ${isHovering && isShiftPressed

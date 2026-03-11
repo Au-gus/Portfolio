@@ -49,7 +49,7 @@ export function Hero() {
 
                         {/* Greeting */}
                         <TypewriterText
-                            text={["Hi! I am Austin Karki,", "alias Faceless Ancient..."]}
+                            text={["Hi! I am Austin Karki,", "Data Scientist & Developer..."]}
                             className="text-xl md:text-2xl lg:text-3xl font-mono text-white leading-snug"
                             delay={1.5}
                         />
@@ -126,8 +126,8 @@ export function Hero() {
                             className="w-full h-full relative"
                         >
                             <Image
-                                src="/images/face_outline.png"
-                                alt="Faceless"
+                                src="/images/ak_logo.png"
+                                alt="Austin Karki"
                                 fill
                                 className={`object-cover transition-opacity duration-700 ${isGlitching ? 'opacity-100 mix-blend-difference' : 'opacity-90 hover:opacity-100'}`}
                                 priority
@@ -167,7 +167,7 @@ export function Hero() {
                                 exit={{ opacity: 0, y: 0 }}
                                 className="absolute -bottom-8 font-mono text-red-500 font-bold text-xs tracking-[0.3em] uppercase bg-black/80 px-4 py-1 rounded-sm border border-red-500/30"
                             >
-                                NO FACE FOUND // ONLY CODE
+                                SYSTEM OVERRIDE // AUSTIN INTEL
                             </motion.div>
                         )}
                     </AnimatePresence>

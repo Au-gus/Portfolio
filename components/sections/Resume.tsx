@@ -7,6 +7,14 @@ import Matter from "matter-js";
 
 const timelineData = [
     {
+        id: "exp-new",
+        year: "2025",
+        role: "Data Science Intern",
+        company: "CodeAlpha",
+        description: "Learned about multivariate analysis and macroeconomic indicators. Analyzed datasets and built predictive models.",
+        category: "Experience"
+    },
+    {
         id: "exp-1",
         year: "2024",
         role: "Data Science Intern",
