@@ -1,7 +1,7 @@
 "use client";
 
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import { useMousePosition } from "@/hooks/useMousePosition";
@@ -113,6 +113,44 @@ function ShaderPlane() {
     );
 }
 
+/**
+ * FAILSAFE: Manually forces the disposal of WebGL resources and loses the context on unmount.
+ * This prevents memory leaks and "too many active WebGL contexts" errors during Next.js Hot Reloads.
+ */
+function MemoryCleanup() {
+    const { gl, scene } = useThree();
+
+    useEffect(() => {
+        return () => {
+            // Traverse scene and dispose of everything
+            scene.traverse((object: any) => {
+                if (object.isMesh) {
+                    if (object.geometry) object.geometry.dispose();
+                    if (object.material) {
+                        if (Array.isArray(object.material)) {
+                            object.material.forEach((m: any) => m.dispose());
+                        } else {
+                            object.material.dispose();
+                        }
+                    }
+                }
+            });
+
+            // Dispose renderer resources
+            gl.renderLists.dispose();
+            gl.dispose();
+
+            // Force WebGL context loss to ensure Intel GPUs release memory immediately
+            const loseContextExt = gl.getContext().getExtension('WEBGL_lose_context');
+            if (loseContextExt) {
+                loseContextExt.loseContext();
+            }
+        };
+    }, [gl, scene]);
+
+    return null;
+}
+
 export function ShaderBg() {
     return (
         <div className="fixed inset-0 z-[-1] pointer-events-none">
@@ -121,6 +159,7 @@ export function ShaderBg() {
                 gl={{ antialias: false }}
                 dpr={1}
             >
+                <MemoryCleanup />
                 <ShaderPlane />
             </Canvas>
         </div>
