@@ -87,14 +87,14 @@ function ShaderPlane() {
         if (materialRef.current) {
             materialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
 
-            const targetMouseX = mousePosition.x / window.innerWidth;
-            const targetMouseY = 1.0 - (mousePosition.y / window.innerHeight);
+            const targetMouseX = mousePosition.current.x / window.innerWidth;
+            const targetMouseY = 1.0 - (mousePosition.current.y / window.innerHeight);
 
             // Silky smooth mouse follow
             materialRef.current.uniforms.uMouse.value.x += (targetMouseX - materialRef.current.uniforms.uMouse.value.x) * 0.025;
             materialRef.current.uniforms.uMouse.value.y += (targetMouseY - materialRef.current.uniforms.uMouse.value.y) * 0.025;
 
-            const targetVel = Math.abs(scrollVelocity);
+            const targetVel = Math.abs(scrollVelocity.current);
             materialRef.current.uniforms.uScrollVelocity.value += (targetVel - materialRef.current.uniforms.uScrollVelocity.value) * 0.05;
         }
     });
@@ -118,8 +118,8 @@ export function ShaderBg() {
         <div className="fixed inset-0 z-[-1] pointer-events-none">
             <Canvas
                 camera={{ position: [0, 0, 1] }}
-                gl={{ antialias: false, powerPreference: "high-performance" }}
-                dpr={[1, 1.5]}
+                gl={{ antialias: false }}
+                dpr={1}
             >
                 <ShaderPlane />
             </Canvas>

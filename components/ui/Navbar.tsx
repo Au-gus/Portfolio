@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useScrollVelocity } from "@/hooks/useScrollVelocity";
 import Image from "next/image";
 import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 
 const navItems = [
@@ -21,6 +22,7 @@ export function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [activeId, setActiveId] = useState("home");
     const [projectWarning, setProjectWarning] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     // Easter Egg State 
 
@@ -30,9 +32,9 @@ export function Navbar() {
     const isHome = pathname === "/";
     const velocity = useScrollVelocity();
 
-    const rawY = useTransform(() => Math.min(Math.abs(velocity) * 0.05, 8));
+    const rawY = useTransform(() => Math.min(Math.abs(velocity.current) * 0.05, 8));
     const floatY = useSpring(rawY, { stiffness: 180, damping: 22 });
-    const rawScale = useTransform(() => 1 - Math.min(Math.abs(velocity) * 0.0003, 0.035));
+    const rawScale = useTransform(() => 1 - Math.min(Math.abs(velocity.current) * 0.0003, 0.035));
     const floatScale = useSpring(rawScale, { stiffness: 200, damping: 25 });
 
     useMotionValueEvent(scrollY, "change", (latest) => {
@@ -138,10 +140,10 @@ export function Navbar() {
                     </span>
                 </Link>
 
-                {/* ── Nav center (floating pill) ── */}
+                {/* ── Nav center (floating pill - hidden on mobile) ── */}
                 <motion.ul
                     style={{ y: floatY, scale: floatScale }}
-                    className="flex items-center rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-lg overflow-hidden"
+                    className="hidden sm:flex flex-nowrap items-center rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-lg overflow-x-auto overflow-y-hidden no-scrollbar sm:max-w-none"
                 >
                     {navItems.map((item) => {
                         const isActive = isHome && activeId === item.id;
@@ -182,7 +184,65 @@ export function Navbar() {
                     })}
                 </motion.ul>
 
+                {/* ── Mobile Menu Toggle ── */}
+                <div className="sm:hidden flex items-center z-50">
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="p-2 text-white/70 hover:text-white transition-colors focus:outline-none"
+                    >
+                        {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+                    </button>
+                </div>
             </div>
+
+            {/* ── Mobile Dropdown Menu ── */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-2xl border-b border-white/10 overflow-hidden sm:hidden shadow-2xl"
+                    >
+                        <div className="flex flex-col px-8 py-8 gap-8">
+                            {navItems.map((item) => {
+                                const isActive = isHome && activeId === item.id;
+                                return (
+                                    <div key={item.id} className="relative">
+                                        <a
+                                            href={`/#${item.id}`}
+                                            onClick={(e) => {
+                                                handleClick(e, item.id);
+                                                // Close menu automatically unless they tap projects (give 800ms window for double tap easter egg)
+                                                if (item.id !== "projects") {
+                                                    setIsMobileMenuOpen(false);
+                                                } else {
+                                                    setTimeout(() => setIsMobileMenuOpen(false), 800);
+                                                }
+                                            }}
+                                            className={`text-2xl font-mono tracking-widest transition-all duration-300 block ${isActive ? "text-white" : "text-white/40 hover:text-white/80"}`}
+                                        >
+                                            <span className="relative z-10 block py-1">{item.name}</span>
+                                        </a>
+                                        {/* PLEASE HOLD toast — only on Projects */}
+                                        {item.id === "projects" && projectWarning && (
+                                            <motion.div
+                                                initial={{ opacity: 0, x: 20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: 20 }}
+                                                className="absolute left-[150px] top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-md bg-black/90 border border-yellow-400/30 text-yellow-300 font-mono text-[10px] tracking-widest whitespace-nowrap pointer-events-none shadow-[0_0_12px_rgba(250,204,21,0.2)]"
+                                            >
+                                                ⏳ PLEASE HOLD
+                                            </motion.div>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
 
 
         </motion.nav>

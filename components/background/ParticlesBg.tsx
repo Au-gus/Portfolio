@@ -2,16 +2,19 @@
 
 import { useEffect, useRef } from "react";
 
-const SPACING = 40;
+const SPACING = 25;
 const INFLUENCE_RADIUS = 600;
 
-interface VectorParticle {
+interface SpaceParticle {
     x: number;
     y: number;
     baseX: number;
     baseY: number;
     vx: number;
     vy: number;
+    type: 'star' | 'planet' | 'dust';
+    size: number;
+    twinkleSpeed: number;
 }
 
 export function ParticlesBg() {
@@ -25,7 +28,7 @@ export function ParticlesBg() {
         if (!ctx) return;
 
         let animId: number;
-        let particles: VectorParticle[] = [];
+        let particles: SpaceParticle[] = [];
 
         let currentR = 80, currentG = 130, currentB = 255;
         let targetR = 80, targetG = 130, targetB = 255;
@@ -63,7 +66,22 @@ export function ParticlesBg() {
                     const jitterY = (Math.random() - 0.5) * SPACING * 2;
                     const x = i * SPACING + jitterX;
                     const y = j * SPACING + jitterY;
-                    particles.push({ x, y, baseX: x, baseY: y, vx: 0, vy: 0 });
+
+                    const rand = Math.random();
+                    let type: 'star' | 'planet' | 'dust' = 'dust';
+                    let size = Math.random() * 1.5 + 0.5;
+                    let twinkleSpeed = 0;
+
+                    if (rand > 0.98) {
+                        type = 'planet';
+                        size = Math.random() * 3 + 2.5; // Planets are slightly larger
+                    } else if (rand > 0.60) {
+                        type = 'star';
+                        size = Math.random() * 1.5 + 1;
+                        twinkleSpeed = Math.random() * 0.05 + 0.02; // Random speed for twinkling
+                    }
+
+                    particles.push({ x, y, baseX: x, baseY: y, vx: 0, vy: 0, type, size, twinkleSpeed });
                 }
             }
         }
@@ -101,12 +119,23 @@ export function ParticlesBg() {
                 const dy = p.y - my;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                // Organic slow pseudo-noise wave field
                 const waveX = Math.sin(p.baseX * 0.003 + time) * 0.5;
                 const waveY = Math.cos(p.baseY * 0.004 + time) * 0.5;
-                let baseAngle = (waveX + waveY) * Math.PI;
-                let scale = 1.0;
-                let alpha = 0.15; // Brighter default
+
+                let scale = p.size;
+                let alpha = 0.3;
+
+                // Base alphas according to celestial typing
+                if (p.type === 'star') {
+                    // Stars twinkle (fade in and out rapidly)
+                    alpha = 0.2 + (Math.sin(time * 15 * p.twinkleSpeed + p.baseX * 0.1) * 0.5 + 0.5) * 0.6;
+                } else if (p.type === 'planet') {
+                    // Planets have a solid, steady glow
+                    alpha = 0.8;
+                } else {
+                    // Dust is faint and just floats
+                    alpha = 0.15;
+                }
 
                 // Mouse magnetic influence (Hover)
                 if (dist < INFLUENCE_RADIUS && dist > 0) {
@@ -114,46 +143,26 @@ export function ParticlesBg() {
                     const mouseAngle = Math.atan2(dy, dx);
 
                     // Attract physically (black hole — pull inward)
-                    // We subtract because (dx, dy) points FROM mouse TO particle
                     p.vx -= Math.cos(mouseAngle) * influence * 1.2;
                     p.vy -= Math.sin(mouseAngle) * influence * 1.2;
 
-                    // Push angle to follow mouse direction visually
-                    baseAngle += mouseAngle * influence * 0.8;
-
-                    // Stay a bit larger overall but still compress somewhat near the singularity
-                    scale = 1.3 - influence * 0.6;
-                    if (scale < 0.6) scale = 0.6;
-                    alpha = 0.2 + influence * 0.75;
+                    // Hover effects on visual size & brightness
+                    scale = (p.size * 1.5) - influence * 0.5;
+                    if (scale < p.size * 0.5) scale = p.size * 0.5;
+                    alpha = Math.min(1, alpha + influence * 0.6);
                 }
-
-                // Occasional random blinking element 
-                const blink = Math.sin(p.baseX * 0.05 + time * 2) * Math.cos(p.baseY * 0.05 - time * 2);
-                if (blink > 0.96 && dist > INFLUENCE_RADIUS) {
-                    alpha = 0.35;
-                    scale = 1.2;
-                }
-
-                ctx.save();
-                ctx.translate(p.x, p.y);
-                ctx.rotate(baseAngle);
-                ctx.scale(scale, scale);
 
                 // Color shifts slightly from base target based on position
                 const r = Math.floor(currentR);
                 const g = Math.floor(currentG + Math.sin(p.baseX * 0.001) * 40);
                 const b = Math.floor(currentB);
-                ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
 
-                // Draw minimalist cross / vector symbol (bigger arms)
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+
+                // Draw perfect circular stars/dust
                 ctx.beginPath();
-                ctx.moveTo(-5, 0);
-                ctx.lineTo(5, 0);
-                ctx.moveTo(0, -5);
-                ctx.lineTo(0, 5);
-                ctx.stroke();
-
-                ctx.restore();
+                ctx.arc(p.x, p.y, scale, 0, Math.PI * 2);
+                ctx.fill();
             }
 
             animId = requestAnimationFrame(draw);

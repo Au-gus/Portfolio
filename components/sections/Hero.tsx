@@ -30,11 +30,11 @@ export function Hero() {
     };
 
     return (
-        <section className="min-h-[100svh] flex items-center px-6 md:px-12 lg:px-20 pt-20 pb-10 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center z-10">
+        <section className="min-h-[100svh] flex items-center px-4 sm:px-6 md:px-12 lg:px-20 pt-20 pb-10 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto w-full flex flex-row gap-3 sm:gap-6 md:gap-10 items-center justify-between z-10">
 
                 {/* ── Left text ── */}
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1.5 md:gap-3 flex-1 min-w-0">
                     <motion.div
                         initial={{ opacity: 0, x: -40 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -44,13 +44,13 @@ export function Hero() {
                         {/* Headline */}
                         <TypewriterText
                             text="Creative Developer"
-                            className="text-3xl md:text-4xl lg:text-5xl font-heading tracking-tighter text-white leading-tight"
+                            className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-heading tracking-tighter text-white leading-tight"
                         />
 
                         {/* Greeting */}
                         <TypewriterText
                             text={["Hi! I am Austin Karki,", "Data Scientist & Developer..."]}
-                            className="text-xl md:text-2xl lg:text-3xl font-mono text-white leading-snug"
+                            className="text-lg md:text-2xl lg:text-3xl font-mono text-white leading-snug"
                             delay={1.5}
                         />
 
@@ -66,7 +66,7 @@ export function Hero() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 4.0, duration: 1 }}
-                            className="mt-2 text-sm md:text-base text-white/55 max-w-sm leading-relaxed"
+                            className="mt-2 text-[13px] sm:text-sm md:text-base text-white/55 max-w-sm leading-relaxed"
                         >
                             Specializing in high-end digital experiences — blending machine intelligence with aesthetic, modern web development.
                         </motion.p>
@@ -96,7 +96,7 @@ export function Hero() {
                     initial={{ opacity: 0, scale: 0.88, y: 30 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                    className="relative hidden lg:flex justify-center items-center flex-col"
+                    className="relative flex justify-center items-center flex-col shrink-0 ml-4 md:ml-0"
                 >
                     {/* Subtle outer glow ring (Speeds up dramatically during glitch) */}
                     <div
@@ -107,7 +107,7 @@ export function Hero() {
                     {/* Profile Container */}
                     <div
                         onClick={handleProfileClick}
-                        className={`relative w-80 h-80 xl:w-[26rem] xl:h-[26rem] rounded-full overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(0,0,0,0.6)] backdrop-blur-xl cursor-pointer transition-all duration-150 ${isGlitching ? 'bg-red-900/40 scale-105' : 'bg-black/40'}`}
+                        className={`relative w-24 h-24 sm:w-32 sm:h-32 md:w-80 md:h-80 xl:w-[26rem] xl:h-[26rem] rounded-full overflow-hidden border border-white/10 shadow-[0_0_60px_rgba(0,0,0,0.6)] backdrop-blur-xl cursor-pointer transition-all duration-150 ${isGlitching ? 'bg-red-900/40 scale-105' : 'bg-black/40'}`}
                         style={isGlitching ? {
                             filter: "hue-rotate(90deg) contrast(150%) brightness(120%)",
                             boxShadow: "0 0 80px rgba(255,0,0,0.6), inset 0 0 40px rgba(0,255,255,0.4)"
@@ -126,9 +126,10 @@ export function Hero() {
                             className="w-full h-full relative"
                         >
                             <Image
-                                src="/images/ak_logo.png"
+                                src="/images/photo.jpg"
                                 alt="Austin Karki"
                                 fill
+                                sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 320px"
                                 className={`object-cover transition-opacity duration-700 ${isGlitching ? 'opacity-100 mix-blend-difference' : 'opacity-90 hover:opacity-100'}`}
                                 priority
                             />

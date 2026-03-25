@@ -1,13 +1,13 @@
 "use client";
 
 import { useLenis } from "lenis/react";
-import { useState } from "react";
+import { useRef } from "react";
 
 export function useScrollVelocity() {
-    const [velocity, setVelocity] = useState(0);
+    const velocity = useRef(0);
 
-    useLenis(({ velocity }) => {
-        setVelocity(velocity);
+    useLenis(({ velocity: v }) => {
+        velocity.current = v;
     });
 
     return velocity;

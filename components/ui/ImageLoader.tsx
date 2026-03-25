@@ -27,7 +27,7 @@ export function ImageLoader({
                 {...props}
                 alt={alt || "Image"}
                 className={cn(
-                    "duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] z-10 relative",
+                    "duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] z-10",
                     isLoading ? "scale-[1.02] blur-xl opacity-0" : "scale-100 blur-0 opacity-100",
                     className
                 )}
